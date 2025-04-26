@@ -18,7 +18,7 @@ Make sure the library is built and ready for distribution:
 
 ```bash
 # Navigate to the library directory
-cd botcircuits_js
+cd botcircuits-js
 
 # Install dependencies
 npm install

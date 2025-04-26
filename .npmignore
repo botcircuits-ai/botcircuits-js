@@ -1,0 +1,25 @@
+# Source files
+src/
+
+# Development files
+examples/
+tests/
+.github/
+.vscode/
+.idea/
+
+# Configuration files
+tsconfig.json
+rollup.config.js
+jest.config.js
+.eslintrc
+.prettierrc
+.babelrc
+
+# Build artifacts
+coverage/
+node_modules/
+
+# Misc
+.DS_Store
+*.log
