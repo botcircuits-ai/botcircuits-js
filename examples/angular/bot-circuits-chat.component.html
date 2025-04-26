@@ -1,0 +1,61 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h2>BotCircuits Chat</h2>
+    <div class="connection-status status-{{connectionStatus.toLowerCase()}}">
+      {{connectionStatus}}
+    </div>
+  </div>
+  
+  <div class="chat-messages" #messagesContainer>
+    <div *ngFor="let message of messages" class="message bot-message">
+      <!-- Text message -->
+      <div *ngIf="message.type === 'TEXT'">
+        {{message.content}}
+      </div>
+      
+      <!-- Buttons message -->
+      <div *ngIf="message.type === 'BUTTONS'" class="buttons-message">
+        <p>{{message.content.displayText}}</p>
+        <p *ngIf="message.content.optionsTitle" class="options-title">
+          {{message.content.optionsTitle}}
+        </p>
+        <div class="buttons-container">
+          <button
+            *ngFor="let button of message.content.buttons"
+            class="button-option"
+            (click)="handleButtonClick(button)"
+          >
+            {{button.title}}
+          </button>
+        </div>
+      </div>
+      
+      <!-- Image message -->
+      <div *ngIf="message.type === 'IMAGE'" class="image-message">
+        <img [src]="message.content.url" [alt]="message.content.caption || 'Bot image'" />
+        <p *ngIf="message.content.caption">{{message.content.caption}}</p>
+      </div>
+      
+      <!-- Unsupported message type -->
+      <div *ngIf="message.type !== 'TEXT' && message.type !== 'BUTTONS' && message.type !== 'IMAGE'">
+        Unsupported message type: {{message.type}}
+      </div>
+    </div>
+  </div>
+  
+  <form class="chat-input-form" (ngSubmit)="sendMessage()">
+    <input
+      [(ngModel)]="inputText"
+      name="inputText"
+      type="text"
+      placeholder="Type a message..."
+      [disabled]="!isConnected()"
+    />
+    <button 
+      type="submit" 
+      [disabled]="!inputText.trim() || !isConnected()"
+    >
+      Send
+    </button>
+  </form>
+</div>
